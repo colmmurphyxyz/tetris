@@ -13,7 +13,7 @@
         if (this.bag.length === 7) {
             this.bag = [...this.shuffle([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]), ...this.bag]
         }
-        return this.bag.pop();
+        return next;
     }
     /**
      * Get the next n elements in the bag, without removing them.

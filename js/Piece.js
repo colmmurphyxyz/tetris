@@ -7,7 +7,7 @@ class Piece {
         checkLines();
 
         let col = bag.pop();
-        next2Pieces = bag.next(2)
+        next2Pieces = bag.next(2);
         this.color = col;
 
         this.coordinates = pieceNumToCoordinates(col);

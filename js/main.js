@@ -125,9 +125,11 @@ function drawBoard() {
         let nextPieceNum = next2Pieces[i];
         let nextPiece = pieceNumToCoordinates(nextPieceNum);
         sctx.fillStyle = colors.get(nextPieceNum);
+
+        const yOffset = (i === 1) ? 0 : 40;
         for (let j = 0; j < nextPiece.length; j++) {
             let c = nextPiece[j]
-            sctx.fillRect(-25 + (c.x * 10), 10 + (c.y * 10) + (40 * i), 10, 10);
+            sctx.fillRect(-25 + (c.x * 10), 10 + (c.y * 10) + yOffset, 10, 10);
         }
     }
 }
