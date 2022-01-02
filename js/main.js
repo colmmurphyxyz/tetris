@@ -103,12 +103,17 @@ document.addEventListener("keydown", (e) => {
 
 function drawBoard() {
     // draw the rest of the board
+    ctx.lineWidth = 0.04;
     for (let y = 0; y < COL_LENGTH; y++) {
         for (let x = 0; x < ROW_LENGTH; x++) {
             let color = colors.get(board[y][x]);
 
             ctx.fillStyle = color;
             ctx.fillRect(x * 10, y * 10, 10, 10);
+
+            // draw gridline
+            ctx.fillStyle = "gray";
+            ctx.strokeRect(x * 10, y * 10, 10, 10);
         }
     }
     // draw the active piece
