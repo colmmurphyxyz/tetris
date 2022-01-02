@@ -13,29 +13,45 @@ colors.set(7, "purple");
 
 const c = (x, y) => new Coord(x, y)
 
-// const pieceCoordinates = [
-//     { // square piece
-//         color: 6,    // yellow
-//         initialCoords: [
-//             c(4, 1), c(4, 0), c(5, 1), c(5, 0)
-//         ]
-//     },
-//     { // L piece
-//         color: 4,    // orange
-//         initialCoords: [
-//             c(4, 1), c(4, 0), c(4, 2), c(5, 2)
-//         ]
-//     },
-//     { // r piece
-//         color: 2,   // blue
-//         initialCoords: [
-//             c(4, 1), c(4, 0), c(4, 2), c(5, 0)
-//         ]
-//     },
-//     { // s piece
-//         color: 3,   // green
-//         initialCoords: [
-//             c(4, 1), c(5, 1), c(5, 0), c(6, 0)
-//         ]
-//     }
-// ];
+function pieceNumToCoordinates(col) {
+    switch (col) {
+        case 1: // Z piece
+            return [
+                c(4, 1), c(4, 0), c(3, 0), c(5, 1)
+            ];
+            break;
+        case 2: // R piece
+            return [
+                c(4, 1), c(3, 1), c(3, 0), c(5, 1)
+            ];
+            break;
+        case 3: // S piece
+            return [
+                c(4, 1), c(3, 1), c(4, 0), c(5, 0)
+            ];
+            break;
+        case 4: // L piece
+            return [
+                c(4, 1), c(3, 1), c(5, 1), c(5, 0)
+            ];
+            break;
+        case 5: // I piece
+            return [
+                c(4, 1), c(3, 1), c(5, 1), c(6, 1)
+            ];
+            break;
+        case 6: // O piece
+            return [
+                c(4, 1), c(4, 0), c(5, 1), c(5, 0)
+            ]
+            break;
+        case 7: // T piece
+            return [
+                c(4, 1), c(3, 1), c(4, 0), c(5, 1)
+            ]
+            break;
+        default:
+            alert("something has gone awfully wrong");
+            break;
+    }
+}

@@ -2,12 +2,14 @@ const canvas = document.getElementById("game-main");
 const ctx = canvas.getContext("2d");
 
 const sideCanvas = document.getElementById("game-side");
-const sctx = canvas.getContext("2d");
+const sctx = sideCanvas.getContext("2d");
 
 const queue = new Queue();
 
 let ticks = 0
 let activePiece = new Piece();
+
+var next2Pieces = bag.next(2);
 
 /**
  * Handle the first input action in the queue
@@ -114,6 +116,19 @@ function drawBoard() {
     for (let i = 0; i < activePiece.coordinates.length; i++) {
         let c = activePiece.coordinates[i];
         ctx.fillRect(c.x * 10, c.y * 10, 10, 10);
+    }
+
+    // draw the next 2 pieces
+    sctx.fillStyle = 'white';
+    sctx.fillRect(0, 0, 50, 200);
+    for (let i = 0; i < 2; i++) {
+        let nextPieceNum = next2Pieces[i];
+        let nextPiece = pieceNumToCoordinates(nextPieceNum);
+        sctx.fillStyle = colors.get(nextPieceNum);
+        for (let j = 0; j < nextPiece.length; j++) {
+            let c = nextPiece[j]
+            sctx.fillRect(-25 + (c.x * 10), 10 + (c.y * 10) + (40 * i), 10, 10);
+        }
     }
 }
 

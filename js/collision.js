@@ -32,7 +32,6 @@ function collisionCheck(piece) {
 }
 
 function collisionCheckCoords(coordinates) {
-    console.log(coordinates)
     let result = [];
     for (let i = 1; i < coordinates.length; i++) {
         let c = coordinates[i];
