@@ -31,6 +31,21 @@ function collisionCheck(piece) {
     return (result.length === 0) ? [Collision.None] : result;
 }
 
+function collisionCheckCoords(coordinates) {
+    console.log(coordinates)
+    let result = [];
+    for (let i = 1; i < coordinates.length; i++) {
+        let c = coordinates[i];
+        if (c.y >= COL_LENGTH)  result.push(Collision.Floor);
+        if (c.x < 0)            result.push(Collision.LeftWall);
+        if (c.x >= ROW_LENGTH)  result.push(Collision.RightWal);
+        try {
+            if (board[c.y][c.x] !== 0)    result.push(Collision.Block);
+        } catch (e) {}
+    }
+    return (result.length === 0) ? [Collision.None] : result;
+}
+
 function collisionCheck(piece, deltaX, deltaY) {
     let result = [];
     for (let i = 0; i < piece.coordinates.length; i++) {
