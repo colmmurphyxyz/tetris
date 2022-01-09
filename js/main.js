@@ -11,65 +11,65 @@ let activePiece = new Piece();
 
 var next2Pieces = bag.next(2);
 
-/**
+/** DEPRECATED
  * Handle the first input action in the queue
  */
-function handleInput() {
-    let action = queue.poll()
-    if (action == undefined) return activePiece;
+// function handleInput() {
+//     let action = queue.poll()
+//     if (action == undefined) return activePiece;
 
-    switch (action) {
-        case Move.Down:
-            if (collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
-                || collisionCheck(activePiece, 0, 1).includes(Collision.Block)) {
-                console.log("new piece!")
+//     switch (action) {
+//         case Move.Down:
+            // if (collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
+            //     || collisionCheck(activePiece, 0, 1).includes(Collision.Block)) {
+            //     console.log("new piece!")
 
-                lockIntoPlace(activePiece);
-                activePiece = new Piece();
-                break;
-            }
-            for (let i = 0; i < activePiece.coordinates.length; i++) {
-                activePiece.coordinates[i].y += 1;
-            }
-            break;
+            //     lockIntoPlace(activePiece);
+            //     activePiece = new Piece();
+            //     break;
+            // }
+            // for (let i = 0; i < activePiece.coordinates.length; i++) {
+            //     activePiece.coordinates[i].y += 1;
+            // }
+//             break;
 
-        case Move.Left:
-            if (collisionCheck(activePiece, -1, 0).includes(Collision.LeftWall)
-                || collisionCheck(activePiece, -1, 0).includes(Collision.Block)) {
-                break;
-            }
-            for (let i = 0; i < activePiece.coordinates.length; i++) {
-                activePiece.coordinates[i].x -= 1
-            }
-            break;
-        case Move.Right:
-            if (collisionCheck(activePiece, 1, 0).includes(Collision.RightWall)
-                || collisionCheck(activePiece, 1, 0).includes(Collision.Block)) {
-                break;
-            }
-            for (let i = 0; i < activePiece.coordinates.length; i++) {
-                activePiece.coordinates[i].x += 1
-            }
-            break;
-        case Move.Rotate:
-            activePiece.rotate();
-            break;
-        case Move.Drop:
-            while (!(collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
-                || collisionCheck(activePiece, 0, 1).includes(Collision.Block))) {
-                for (let i = 0; i < activePiece.coordinates.length; i++) {
-                    activePiece.coordinates[i].y += 1;
-                }
-            }
-            lockIntoPlace(activePiece);
-            activePiece = new Piece();
-            break;
-        default:
-            console.log("something has gone terrible wrong");
-            alert("something has gone terrible wrong");
-    }
-}
-
+//         case Move.Left:
+//             if (collisionCheck(activePiece, -1, 0).includes(Collision.LeftWall)
+//                 || collisionCheck(activePiece, -1, 0).includes(Collision.Block)) {
+//                 break;
+//             }
+//             for (let i = 0; i < activePiece.coordinates.length; i++) {
+//                 activePiece.coordinates[i].x -= 1
+//             }
+//             break;
+//         case Move.Right:
+//             if (collisionCheck(activePiece, 1, 0).includes(Collision.RightWall)
+//                 || collisionCheck(activePiece, 1, 0).includes(Collision.Block)) {
+//                 break;
+//             }
+//             for (let i = 0; i < activePiece.coordinates.length; i++) {
+//                 activePiece.coordinates[i].x += 1
+//             }
+//             break;
+//         case Move.Rotate:
+//             activePiece.rotate();
+//             break;
+//         case Move.Drop:
+            // while (!(collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
+            //     || collisionCheck(activePiece, 0, 1).includes(Collision.Block))) {
+            //     for (let i = 0; i < activePiece.coordinates.length; i++) {
+            //         activePiece.coordinates[i].y += 1;
+            //     }
+            // }
+//             lockIntoPlace(activePiece);
+//             activePiece = new Piece();
+//             break;
+//         default:
+//             console.log("something has gone terrible wrong");
+//             alert("something has gone terrible wrong");
+//     }
+// }
+/*
 document.addEventListener("keydown", (e) => {
     switch (e.code) {
         case "KeyS":
@@ -100,6 +100,7 @@ document.addEventListener("keydown", (e) => {
             queue.push(Move.Hold);
     }
 });
+*/
 
 function drawBoard() {
     // draw the rest of the board
@@ -140,7 +141,7 @@ function drawBoard() {
 }
 
 function gameplayLoop() {
-    if (ticks % 30 === 0) queue.push(Move.Down);
+    if (ticks % 30 === 0) movePieceDown = true;
     if (++ticks >= 60) {
         ticks = 0;
     }
