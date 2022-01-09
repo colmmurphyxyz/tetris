@@ -103,38 +103,38 @@ document.addEventListener("keydown", (e) => {
 
 function drawBoard() {
     // draw the rest of the board
-    ctx.lineWidth = 0.04;
+    ctx.lineWidth = 2;
     for (let y = 0; y < COL_LENGTH; y++) {
         for (let x = 0; x < ROW_LENGTH; x++) {
             let color = colors.get(board[y][x]);
 
             ctx.fillStyle = color;
-            ctx.fillRect(x * 10, y * 10, 10, 10);
+            ctx.fillRect(x * 100, y * 100, 100, 100);
 
             // draw gridline
-            ctx.fillStyle = "gray";
-            ctx.strokeRect(x * 10, y * 10, 10, 10);
+            ctx.fillStyle = "white";
+            ctx.strokeRect(x * 100, y * 100, 100, 100);
         }
     }
     // draw the active piece
     ctx.fillStyle = colors.get(activePiece.color);
     for (let i = 0; i < activePiece.coordinates.length; i++) {
         let c = activePiece.coordinates[i];
-        ctx.fillRect(c.x * 10, c.y * 10, 10, 10);
+        ctx.fillRect(c.x * 100, c.y * 100, 100, 100);
     }
 
     // draw the next 2 pieces
     sctx.fillStyle = 'white';
-    sctx.fillRect(0, 0, 50, 200);
+    sctx.fillRect(0, 0, 500, 2000);
     for (let i = 0; i < 2; i++) {
         let nextPieceNum = next2Pieces[i];
         let nextPiece = pieceNumToCoordinates(nextPieceNum);
         sctx.fillStyle = colors.get(nextPieceNum);
 
-        const yOffset = (i === 1) ? 0 : 40;
+        const yOffset = (i === 1) ? 0 : 400;
         for (let j = 0; j < nextPiece.length; j++) {
             let c = nextPiece[j]
-            sctx.fillRect(-25 + (c.x * 10), 10 + (c.y * 10) + yOffset, 10, 10);
+            sctx.fillRect(-250 + (c.x * 100), 100 + (c.y * 100) + yOffset, 100, 100);
         }
     }
 }
