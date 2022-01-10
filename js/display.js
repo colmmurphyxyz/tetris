@@ -47,7 +47,7 @@ function drawBoard() {
 
         const yOffset = (i === 1) ? 0 : 4;
         for (let coord of nextPiece) {
-            drawSquare(sideCtx, coord.x - 2, coord.y + 1 + yOffset, color);
+            drawSquare(sideCtx, coord.x + 2, coord.y + 2 + yOffset, color);
         }
     }
 }

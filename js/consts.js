@@ -13,41 +13,45 @@ colors.set(7, "purple");
 
 const c = (x, y) => new Coord(x, y)
 
+/**
+ * Returns a piece represented by an array of the __relative__ coordinates of all its squares.
+ * You must add or subtract a constant to all the coordinates in this array before drawing to the screen/board
+ */
 function pieceNumToCoordinates(col) {
     switch (col) {
         case 1: // Z piece
             return [
-                c(4, 1), c(4, 0), c(3, 0), c(5, 1)
+                c(0, 0), c(0, -1), c(-1, -1), c(1, 0)
             ];
             break;
         case 2: // R piece
             return [
-                c(4, 1), c(3, 1), c(3, 0), c(5, 1)
+                c(0, 0), c(-1, 0), c(-1, -1), c(1, 0)
             ];
             break;
         case 3: // S piece
             return [
-                c(4, 1), c(3, 1), c(4, 0), c(5, 0)
+                c(0, 0), c(-1, 0), c(0, -1), c(1, -1)
             ];
             break;
         case 4: // L piece
             return [
-                c(4, 1), c(3, 1), c(5, 1), c(5, 0)
+                c(0, 0), c(-1, 0), c(1, 0), c(1, -1)
             ];
             break;
         case 5: // I piece
             return [
-                c(4, 1), c(3, 1), c(5, 1), c(6, 1)
+                c(0, 0), c(-1, 0), c(1, 0), c(-2, 0)
             ];
             break;
         case 6: // O piece
             return [
-                c(4, 1), c(4, 0), c(5, 1), c(5, 0)
+                c(0, 0), c(0, -1), c(1, 0), c(1, -1)
             ]
             break;
         case 7: // T piece
             return [
-                c(4, 1), c(3, 1), c(4, 0), c(5, 1)
+                c(0, 0), c(-1, 0), c(0, -1), c(1, 0)
             ]
             break;
         default:

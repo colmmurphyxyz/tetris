@@ -1,5 +1,5 @@
 class Piece {
-    coordinates;
+    coordinates = [];
     color;
     fulcrumCoords;
     constructor() {
@@ -10,7 +10,10 @@ class Piece {
         next2Pieces = bag.next(2);
         this.color = col;
 
-        this.coordinates = pieceNumToCoordinates(col);
+        const relativeCoordinates = pieceNumToCoordinates(col);
+        for (let coord of relativeCoordinates) {
+            this.coordinates.push(c(coord.x + 4, coord.y + 1));
+        }
 
         this.fulcrumCoords = this.coordinates[0];
 
