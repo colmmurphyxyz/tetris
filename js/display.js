@@ -4,6 +4,13 @@ const mainCtx = canvas.getContext("2d");
 const sideCanvas = document.getElementById("game-side");
 const sideCtx = sideCanvas.getContext("2d");
 
+const gridlineColor = "gray";
+
+function drawGridline(ctx, x, y, color) {
+    ctx.fillStyle = (color) ? ((typeof color === 'number') ? colors.get(color) : color) : gridlineColor;
+    ctx.strokeRect(x * 100, y * 100, 100, 100);
+}
+
 function drawSquare(ctx, x, y, color) {
     ctx.lineWidth = 2;
 
@@ -14,9 +21,7 @@ function drawSquare(ctx, x, y, color) {
         color = colors.get(number);
     }
     
-    // if (color === "white")
-    ctx.fillStyle = "gray";
-    ctx.strokeRect(x * 100, y * 100, 100, 100);
+    drawGridline(ctx, x, y);
 }
 
 function drawBoard() {
@@ -32,10 +37,6 @@ function drawBoard() {
     for (let square of activePiece.coordinates) {
         drawSquare(mainCtx, square.x, square.y, activePieceColor);
     }
-    // for (let i = 0; i < activePiece.coordinates.length; i++) {
-    //     let c = activePiece.coordinates[i];
-    //     ctx.fillRect(c.x * 100, c.y * 100, 100, 100);
-    // }
 
     // draw the next 2 pieces
     sideCtx.fillStyle = 'white';
