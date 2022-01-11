@@ -12,7 +12,7 @@ class Piece {
 
         const relativeCoordinates = pieceNumToCoordinates(col);
         for (let coord of relativeCoordinates) {
-            this.coordinates.push(c(coord.x + 4, coord.y + 1));
+            this.coordinates.push(c(coord.x + 4, coord.y));
         }
 
         this.fulcrumCoords = this.coordinates[0];
@@ -20,6 +20,7 @@ class Piece {
         // check for collision
         for (let i = 0; i < this.coordinates.length; i++) {
             let c = this.coordinates[i];
+            if (c.y < 0 || c.x < 0) break;
             if (board[c.y][c.x] !== 0) {
                 gameOver();
             }

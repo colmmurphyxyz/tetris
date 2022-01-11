@@ -9,6 +9,7 @@ for (let i = 0; i < COL_LENGTH; i++) {
 }
 
 function lockIntoPlace(piece) {
+    if (c.y < 0 || c.x < 0) gameOver();
     for (let i = 0; i < piece.coordinates.length; i++) {
         let c = piece.coordinates[i];
         board[c.y][c.x] = piece.color;

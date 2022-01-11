@@ -35,6 +35,7 @@ function drawBoard() {
     // draw the active piece
     const activePieceColor = colors.get(activePiece.color);
     for (let square of activePiece.coordinates) {
+        if (square.x < 0 || square.y < 0) continue;
         drawSquare(mainCtx, square.x, square.y, activePieceColor);
     }
 
