@@ -1,6 +1,8 @@
 // array used for handling user input, [up, down left, right, space, hold]
 let key = [0, 0, 0, 0, 0, 0];
 let movePieceDown = false;
+let ticksOnGround = 0;
+const ticksOnGroundThreshold = 2;
 
 function changeKey(which, to) {
     switch (which) {
@@ -50,8 +52,9 @@ function moveActivePieceDown() {
     if (collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
         || collisionCheck(activePiece, 0, 1).includes(Collision.Block))
     {
-        console.log("new piece!")
-
+        if (++ticksOnGround < ticksOnGroundThreshold) return;
+        ticksOnGround = 0;
+        console.log("new piece")
         lockIntoPlace(activePiece);
         activePiece = new Piece();
         return;
