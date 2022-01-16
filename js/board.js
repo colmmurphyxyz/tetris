@@ -8,13 +8,13 @@ for (let i = 0; i < COL_LENGTH; i++) {
     board.push(row);
 }
 
-function lockIntoPlace(piece) {
-    if (c.y < 0 || c.x < 0) gameOver();
-    for (let i = 0; i < piece.coordinates.length; i++) {
-        let c = piece.coordinates[i];
-        board[c.y][c.x] = piece.color;
-    }
-}
+// function lockIntoPlace(piece) {
+//     if (c.y < 0 || c.x < 0) gameOver();
+//     for (let i = 0; i < piece.coordinates.length; i++) {
+//         let c = piece.coordinates[i];
+//         board[c.y][c.x] = piece.color;
+//     }
+// }
 
 function checkLines() {
     for (let row = 0; row < COL_LENGTH; row++) {
@@ -35,3 +35,18 @@ function checkLines() {
         }
     }
 }
+
+handlers.push(
+    {
+        event: "pieceLockIntoPlace",
+        callback: () => {
+            if (c.y < 0 || c.x < 0) notify("gameOver");
+            for (let i = 0; i < activePiece.coordinates.length; i++) {
+                let c = activePiece.coordinates[i];
+                board[c.y][c.x] = activePiece.color;
+            }
+            checkLines();
+            activePiece = new Piece();
+        }
+    }
+)

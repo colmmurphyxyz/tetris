@@ -18,11 +18,16 @@ function gameplayLoop() {
 let gameLoopIntervalID;
 let drawBoardIntervalID;
 
-function gameOver() {
-    console.log("Game Over")
-    clearInterval(gameLoopIntervalID);
-    clearInterval(drawBoardIntervalID);
-}
+handlers.push(
+    {
+        event: "gameOver",
+        callback: () => {
+            console.log("Game Over")
+            clearInterval(gameLoopIntervalID);
+            clearInterval(drawBoardIntervalID);
+        }
+    }
+)
 
 function main() {
     gameLoopIntervalID = setInterval( () => { gameplayLoop() }, 16.67 );

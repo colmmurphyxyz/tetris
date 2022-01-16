@@ -21,7 +21,7 @@ class Piece {
             let c = this.coordinates[i];
             if (c.y < 0 || c.x < 0) break;
             if (board[c.y][c.x] !== 0) {
-                gameOver();
+                notify("gameOver");
             }
         }
     }

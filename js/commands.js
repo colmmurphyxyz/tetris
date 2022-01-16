@@ -7,10 +7,8 @@ class Move {
     }
     execute() {
         const col = collisionCheck(activePiece, this.deltaX, this.deltaY);
-        if (col.includes(Collision.Block) || col.includes(Collision.Floor)) {
-            lockIntoPlace(activePiece);
-            // notify listeners
-            activePiece = new Piece();
+        if (col.includes(Collision.Block) || col.includes(Collision.Floor)) {   
+            notify("pieceLockIntoPlace");
             return;
         }
         if (!col.includes(Collision.None)) return;
