@@ -1,5 +1,5 @@
-// array used for handling user input, [up, down left, right, space, hold]
-let key = [0, 0, 0, 0, 0, 0];
+// array used for handling user input, [up, down left, right, space, hold, undo]
+let key = [0, 0, 0, 0, 0, 0, 0];
 let movePieceDown = false;
 let ticksOnGround = 0;
 const ticksOnGroundThreshold = 2;
@@ -32,6 +32,10 @@ function changeKey(which, to) {
         
         case "KeyC":
             key[5] = to;
+            break;
+
+        case "KeyX":
+            key[6] = to;
             break;
     }
 }
