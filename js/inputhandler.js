@@ -64,6 +64,20 @@ function moveActivePieceDown() {
     }
 }
 
+function holdActivePiece() {
+    const temp = activePiece;
+    const fulcrumCoords = activePiece.fulcrumCoords;
+    if (holdPiece === undefined) holdPiece = new Piece();
+    const deltaX = fulcrumCoords.x - holdPiece.coordinates[0].x;
+    const deltaY = fulcrumCoords.y - holdPiece.coordinates[0].y;
+    for (let i = 0; i < holdPiece.coordinates.length; i++) {
+        const square = holdPiece.coordinates[i];
+        holdPiece.coordinates[i] = c(square.x + deltaX, square.y + deltaY);
+    }
+    activePiece = holdPiece;
+    holdPiece = temp;
+}
+
 document.addEventListener("keydown", (e) => { changeKey(e.code, 1) } );
 document.addEventListener("keyup", (e) => { changeKey(e.code, 0) } );
 
@@ -72,7 +86,7 @@ document.addEventListener("keyup", (e) => { changeKey(e.code, 0) } );
  */
 function handleInput() {
     if (movePieceDown) {
-        moveActivePieceDown();
+        new Move(0, 1).execute();
         movePieceDown = false;
     }
     if (key[0]) { // rotate
@@ -80,22 +94,24 @@ function handleInput() {
         key[0] = 0;
     }
     if (key[1] && ticks % 6 === 0) { // down
-        moveActivePieceDown();
+        new Move(0, 1).execute();
     }
     if (key[2] && ticks % 6 === 0) { // left
-        moveActivePieceHorizontal(-1);
+        new Move(-1, 0).execute();
     }
     if (key[3] && ticks % 4 === 0) { // right 
-        moveActivePieceHorizontal(1);
+        new Move(1, 0).execute();
     }
     if (key[4]) { // spacebar
         while (!(collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
             || collisionCheck(activePiece, 0, 1).includes(Collision.Block)))
         {
-            for (let i = 0; i < activePiece.coordinates.length; i++) {
-                activePiece.coordinates[i].y += 1;
-            }
+            new Move(0, 1).execute();
         }
         key[4] = 0;
+    }
+    if (key[5]) { // C
+        holdActivePiece();
+        key[5] = 0;
     }
 }

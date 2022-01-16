@@ -2,7 +2,7 @@ class Collision {
     name;
 
     constructor(n) {
-        this.name == n;
+        this.name = n;
     }
 
     static Floor = new Collision("floor");
@@ -59,9 +59,11 @@ function collisionCheck(piece, deltaX, deltaY) {
         if (c.y + deltaY >= COL_LENGTH)                 result.push(Collision.Floor);
         if (c.x + deltaX < 0)                          result.push(Collision.LeftWall);
         if (c.x + deltaX >= ROW_LENGTH)                 result.push(Collision.RightWal);
-        try {
-            if (board[c.y + deltaY][c.x + deltaX] !== 0)    result.push(Collision.Block);
-        } catch (e) {}
+        if (
+            board[c.y + deltaY] !== undefined
+            && board[c.y + deltaY][c.x + deltaX] !== undefined
+            && board[c.y + deltaY][c.x + deltaX] !== 0
+        ) result.push(Collision.Block);
     }
     return (result.length === 0) ? [Collision.None] : result;
 }
