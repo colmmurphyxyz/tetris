@@ -2,7 +2,7 @@ const queue = new Queue();
 
 let ticks = 0
 let activePiece = new Piece();
-let holdPiece;
+let holdPiece = new Piece();
 
 var next2Pieces = bag.next(2);
 

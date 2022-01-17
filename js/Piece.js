@@ -14,8 +14,6 @@ class Piece {
             this.coordinates.push(c(coord.x + 4, coord.y));
         }
 
-        // this.fulcrumCoords = this.coordinates[0];
-
         // check for collision
         for (let i = 0; i < this.coordinates.length; i++) {
             let c = this.coordinates[i];

@@ -100,7 +100,7 @@ function handleInput() {
     if (key[1] && ticks % 6 === 0) { // down
         new Move(0, 1).execute();
     }
-    if (key[2] && ticks % 6 === 0) { // left
+    if (key[2] && ticks % 4 === 0) { // left
         new Move(-1, 0).execute();
     }
     if (key[3] && ticks % 4 === 0) { // right 
@@ -113,9 +113,10 @@ function handleInput() {
             new Move(0, 1).execute();
         }
         key[4] = 0;
+        notify("pieceLockIntoPlace");
     }
     if (key[5]) { // C
-        holdActivePiece();
+        notify("hold");
         key[5] = 0;
     }
 }
