@@ -53,6 +53,7 @@ function collisionCheckCoordsAt(coordinates, deltaX, deltaY) {
 }
 
 function collisionCheck(piece, deltaX, deltaY) {
+    console.log("You called me")
     let result = [];
     for (let i = 0; i < piece.coordinates.length; i++) {
         let c = piece.coordinates[i];
@@ -66,4 +67,18 @@ function collisionCheck(piece, deltaX, deltaY) {
         ) result.push(Collision.Block);
     }
     return (result.length === 0) ? [Collision.None] : result;
+}
+
+function collisionCheckVertical(piece, deltaY) {
+    let result = [];
+    for (let i = 0; i < piece.coordinates.length; i++) {
+        const c = piece.coordinates[i];
+        if (c.y + deltaY == COL_LENGTH - 1) {
+            result.push(Collision.Floor);
+        }
+        if (board[c.y + deltaY][c.x] !== 0) {
+            result.push(Collision.Block);
+        }
+    }
+    return (result.length === 0) ? [Collision.None] : result
 }

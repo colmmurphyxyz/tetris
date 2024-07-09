@@ -73,22 +73,22 @@ function changeKey(which, to) {
 }
 
 function moveActivePieceHorizontal(to) {
-            if (collisionCheck(activePiece, to, 0).includes(Collision.LeftWall)
-                || collisionCheck(activePiece, to, 0).includes(Collision.RightWall)
-                || collisionCheck(activePiece, to, 0).includes(Collision.Block))
-            {
-                return;
-            }
-            for (let i = 0; i < activePiece.coordinates.length; i++) {
-                activePiece.coordinates[i].x += to
-            }
+    if (collisionCheck(activePiece, to, 0).includes(Collision.LeftWall)
+            || collisionCheck(activePiece, to, 0).includes(Collision.RightWall)
+            || collisionCheck(activePiece, to, 0).includes(Collision.Block))
+    {
+        return;
+    }
+    for (let i = 0; i < activePiece.coordinates.length; i++) {
+        activePiece.coordinates[i].x += to;
+    }
 }
 
 function moveActivePieceDown() {
-    if (collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
-        || collisionCheck(activePiece, 0, 1).includes(Collision.Block))
-    {
-        if (++ticksOnGround < ticksOnGroundThreshold) return;
+    if (!collisionCheckVertical(activePiece, 1).includes(Collision.None)) {
+        if (++ticksOnGround < ticksOnGroundThreshold) {
+            return;
+        }
         ticksOnGround = 0;
         console.log("new piece")
         lockIntoPlace(activePiece);
