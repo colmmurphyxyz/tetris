@@ -1,7 +1,39 @@
 // array used for handling user input, [up, down left, right, space, hold, undo]
 let key = [0, 0, 0, 0, 0, 0, 0];
+/*
+to debounce the horizontal keys, we must ensure a piece is not moved in one direction less than `keyDebounceTime_ms`
+later than the last time it was moved in that direction.
+This is achieved using a Map, where the time a piece was last moved in a direction is saved under they key "left" or "right"
+*/
+const keyDebounceTime_ms = 120;
+// set initial values to -1, this will be overwritten soon
+let keyDebouncer = new Map([
+    ["left", -1],
+    ["right", -1],
+    ["up", -1],
+    ["down", -1],
+]);
+
+// predicate to check if a key satisfies the debouncer
+// i.e return true if more than `keyDebounceTime_ms` ms has elapsed since the key's handler was last executed
+/**
+ * 
+ * @param {string} key key identifier e.g "left", "up"
+ * @returns {boolean} true if more than keyDebounceTime_ms has elapsed
+ */
+function checkDebouncer(key) {
+    const currentTime = Date.now();
+    if (currentTime - keyDebouncer.get(key) < keyDebounceTime_ms) {
+        return false;
+    }
+    keyDebouncer.set(key, currentTime);
+    return true
+}
+
 let movePieceDown = false;
+
 let ticksOnGround = 0;
+
 const ticksOnGroundThreshold = 2;
 
 function changeKey(which, to) {
@@ -94,17 +126,21 @@ function handleInput() {
         movePieceDown = false;
     }
     if (key[0]) { // rotate
-        activePiece.rotate()
-        key[0] = 0;
+        const currentTime = Date.now();
+        if (currentTime - keyDebouncer.get("up") > keyDebounceTime_ms) {
+            activePiece.rotate()
+            key[0] = 0; // require user to release and re-press the up key to rotate again
+            keyDebouncer.set("up", currentTime)
+        }
     }
-    if (key[1] && ticks % 6 === 0) { // down
-        new Move(0, 1).execute();
+    if (key[1]) { // down
+        executeMoveIfSatisfies(new Move(0, 1), checkDebouncer, "down");
     }
-    if (key[2] && ticks % 4 === 0) { // left
-        new Move(-1, 0).execute();
+    if (key[2]) { // left
+        executeMoveIfSatisfies(new Move(-1, 0), checkDebouncer, "left");
     }
-    if (key[3] && ticks % 4 === 0) { // right 
-        new Move(1, 0).execute();
+    if (key[3]) { // right 
+        executeMoveIfSatisfies(new Move(1, 0), checkDebouncer, "right");
     }
     if (key[4]) { // spacebar
         while (!(collisionCheck(activePiece, 0, 1).includes(Collision.Floor)
@@ -119,4 +155,11 @@ function handleInput() {
         notify("hold");
         key[5] = 0;
     }
+}
+
+function executeMoveIfSatisfies(move, predicate, key) {
+    if (!predicate(key)) {
+        return;
+    }
+    move.execute();
 }
