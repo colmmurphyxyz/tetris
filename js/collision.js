@@ -53,7 +53,6 @@ function collisionCheckCoordsAt(coordinates, deltaX, deltaY) {
 }
 
 function collisionCheck(piece, deltaX, deltaY) {
-    console.log("You called me")
     let result = [];
     for (let i = 0; i < piece.coordinates.length; i++) {
         let c = piece.coordinates[i];
