@@ -3,15 +3,15 @@
  * when a new piece is chosen, the computer chooses a random piece from the bag, and replaces it when empty
  */
  class Bag {
-    bag = this.shuffle([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]);
+    #bag = this.#shuffle([1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7]);
 
     /**
      * Get the next element in the bag.
      */
     pop() {
-        let next = this.bag.pop();
-        if (this.bag.length === 7) {
-            this.bag = [...this.shuffle([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7]), ...this.bag]
+        let next = this.#bag.pop();
+        if (this.#bag.length < 10) {
+            this.#bag = [...this.#shuffle([1, 2, 3, 4, 5, 6, 7]), ...this.#bag]
         }
         return next;
     }
@@ -20,7 +20,7 @@
      */
     next(n) {
         if (n > 7 || n < 1) throw "Bad Input for function Bag.peek, input should be in [1, 7]";
-        return this.bag.slice(n * -1);
+        return this.#bag.slice(n * -1);
     }
 
     /** 
@@ -28,11 +28,11 @@
      */
     peek(n) {
         if (n > 7 || n < 1) throw "Bad Input for function Bag.peek, input should be in [1, 7]"
-        return this.bag[this.bag.length - (n + 1)];
+        return this.#bag[this.#bag.length - (n + 1)];
     }
 
     // taken from https://bost.ocks.org/mike/shuffle/
-    shuffle(array) {
+    #shuffle(array) {
         var m = array.length, t, i;
       
         // While there remain elements to shuffle…
@@ -50,4 +50,5 @@
         return array;
     }
 }
+
 let bag = new Bag();
