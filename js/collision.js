@@ -74,6 +74,13 @@ function collisionCheckVertical(piece, deltaY) {
         const c = piece.coordinates[i];
         if (c.y + deltaY == COL_LENGTH - 1) {
             result.push(Collision.Floor);
+            continue;
+        }
+        if (board[c.y + deltaY] === undefined) {
+            continue;
+        }
+        if (board[c.y + deltaY][c.x] == undefined) {
+            continue;
         }
         if (board[c.y + deltaY][c.x] !== 0) {
             result.push(Collision.Block);
