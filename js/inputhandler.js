@@ -90,14 +90,10 @@ function moveActivePieceDown() {
             return;
         }
         ticksOnGround = 0;
-        console.log("new piece")
-        lockIntoPlace(activePiece);
-        activePiece = new Piece();
+        notify("pieceLockIntoPlace");
         return;
     }
-    for (let i = 0; i < activePiece.coordinates.length; i++) {
-        activePiece.coordinates[i].y += 1;
-    }
+    new Move(0, 1).execute()
 }
 
 function holdActivePiece() {
@@ -122,7 +118,7 @@ document.addEventListener("keyup", (e) => { changeKey(e.code, 0) } );
  */
 function handleInput() {
     if (movePieceDown) {
-        new Move(0, 1).execute();
+        moveActivePieceDown();
         movePieceDown = false;
     }
     if (key[0]) { // rotate
